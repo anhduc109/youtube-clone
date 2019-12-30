@@ -1,36 +1,55 @@
 import React from "react";
 
-import {Paper, TextField} from '@material-ui/core';
+import { Navbar, Form, FormControl, Button } from "react-bootstrap";
 
 class SearchBar extends React.Component {
-    state = {
-        searchTerm: ''
-    }
+  state = {
+    searchTerm: ""
+  };
 
-    handleChange = (event) => {
-        this.setState({
-            searchTerm: event.target.value
-        })
-    }
+  handleChange = event => {
+    this.setState({
+      searchTerm: event.target.value
+    });
+  };
 
-    handleSubmit = (event) => {
-        const {searchTerm} = this.state;
-        const {onFormSubmit} = this.props;
+  handleSubmit = event => {
+    const { searchTerm } = this.state;
+    const { onFormSubmit } = this.props;
 
-        onFormSubmit(searchTerm);
-        
-        event.preventDefault();
-    }
+    onFormSubmit(searchTerm);
 
-    render(){
-        return(
-            <Paper elevation={6} style={{padding:'25px'}}>
-                <form onSubmit={this.handleSubmit}>
-                    <TextField fullWidth label='Search...' onChange={this.handleChange}/>
-                </form>
-            </Paper>
-        )
-    }
+    event.preventDefault();
+  };
+
+  render() {
+    return (
+      <Navbar bg="light" sticky="top">
+        <Navbar.Brand href="/">
+          <svg
+            xmlns="http://www.w3.org/2000/svg"
+            width="30"
+            height="30"
+            viewBox="0 0 30 30"
+          >
+            <path d="M19.615 3.184c-3.604-.246-11.631-.245-15.23 0-3.897.266-4.356 2.62-4.385 8.816.029 6.185.484 8.549 4.385 8.816 3.6.245 11.626.246 15.23 0 3.897-.266 4.356-2.62 4.385-8.816-.029-6.185-.484-8.549-4.385-8.816zm-10.615 12.816v-8l8 3.993-8 4.007z" />
+          </svg>
+          UTube
+        </Navbar.Brand>
+        <Form className="form-wrapper" onSubmit={this.handleSubmit}>
+          <FormControl
+            type="text"
+            placeholder="Search..."
+            className="form-input"
+            onChange={this.handleChange}
+          />
+          <Button className="form-submit" type="submit" variant="dark">
+            Search
+          </Button>
+        </Form>
+      </Navbar>
+    );
+  }
 }
 
 export default SearchBar;
