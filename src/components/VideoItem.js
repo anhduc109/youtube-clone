@@ -1,18 +1,37 @@
-import React from 'react';
+import React from "react";
 
-import {Grid, Paper, Typography} from '@material-ui/core';
+import { Image } from "react-bootstrap";
 
-const VideoItem = ({video, onVideoSelect}) => {
+const VideoItem = ({ video, onVideoSelect, fromHomePage }) => {
+  if (fromHomePage === false) {
     return (
-        <Grid item xs={12}>
-            <Paper style={{display: 'flex', alignItems: 'center', cusor:'pointer'}} onClick={() => onVideoSelect(video)}>
-                <img style={{marginRight: '20px'}} alt="thumbnail" src={video.snippet.thumbnails.medium.url}/>
-                <Typography variant="subtitle1">
-                    <b>{video.snippet.title}</b>
-                </Typography>
-            </Paper>
-        </Grid>
-    )
-}
+      <div className="video-item-div" onClick={() => onVideoSelect(video)}>
+        <Image
+          className="video-item-img"
+          src={video.snippet.thumbnails.medium.url}
+          thumbnail
+          fluid
+        />
+        <h6 className="video-item-title">{video.snippet.title}</h6>
+      </div>
+    );
+  } else {
+    return (
+      <div>
+        <div
+          className="video-item-div"
+          onClick={() => onVideoSelect(video, fromHomePage)}
+        >
+          <Image src={video.snippet.thumbnails.medium.url} thumbnail fluid />
+          <div className="video-item-title">
+            <h5>{video.snippet.title}</h5>
+            <h6>{video.snippet.channelTitle}</h6>
+            <p>{video.snippet.description}</p>
+          </div>
+        </div>
+      </div>
+    );
+  }
+};
 
 export default VideoItem;
